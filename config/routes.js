@@ -58,5 +58,8 @@ module.exports.routes = {
   'GET /partnerships': 'PartnershipController.getAll',
   'POST /partnerships': 'PartnershipController.create',
   'PUT /partnerships/:id': 'PartnershipController.update',
-  'DELETE /partnerships/:id': 'PartnershipController.delete'
+  'DELETE /partnerships/:id': 'PartnershipController.delete',
+
+  // Family
+  'GET /families/:personId': 'FamilyController.get'
 };

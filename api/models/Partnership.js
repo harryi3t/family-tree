@@ -23,7 +23,7 @@ module.exports = {
       via: 'partnership'
     },
     children: {
-      collection: 'person'
+      type: 'array'
     }
   }
 };
