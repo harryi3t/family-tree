@@ -10,7 +10,7 @@
  *
  */
 
- require('dotEnv').config();
+ require('dotenv').config();
 
  var dbUser = process.env.DB_USER,
   dbPort = process.env.DB_PORT,
