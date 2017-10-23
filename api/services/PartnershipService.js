@@ -54,7 +54,6 @@ module.exports = {
     },
 
     create: function (partnership, cb) {
-      console.log({partnership});
       Partnership.create(partnership).exec(function (err, partnership) {
         if (err) {
           LogService.logError({
@@ -67,8 +66,6 @@ module.exports = {
             }
           });
         }
-
-        console.log({err, partnership})
 
         return cb(err, partnership);
       });

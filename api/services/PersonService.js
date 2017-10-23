@@ -1,37 +1,41 @@
 module.exports = {
     one: function (id, cb) {
-      Person.findOne({ id: id }).populate('partnership').exec(function (err, person) {
-        if (err) {
-          LogService.logError({
-            error: err,
-            meta: {
-              errorType: 'dbError',
-              location: 'PersonService',
-              method: 'one',
-              id: id
-            }
-          });
+      Person.findOne({ id: id })
+        .populate('partnership').populate('siblings').exec(function (err, person) {
+          if (err) {
+            LogService.logError({
+              error: err,
+              meta: {
+                errorType: 'dbError',
+                location: 'PersonService',
+                method: 'one',
+                id: id
+              }
+            });
+          }
+          return cb(err, person);
         }
-        return cb(err, person);
-      });
+      );
     },
 
     find: function (criteria, cb) {
-      Person.find(criteria).populate('partnership').exec(function (err, persons) {
-        if (err) {
-          LogService.logError({
-            error: err,
-            meta: {
-              errorType: 'dbError',
-              location: 'PersonService',
-              method: 'find',
-              criteria: criteria
-            }
-          });
-        }
+      Person.find(criteria)
+        .populate('partnership').populate('siblings').exec(function (err, persons) {
+          if (err) {
+            LogService.logError({
+              error: err,
+              meta: {
+                errorType: 'dbError',
+                location: 'PersonService',
+                method: 'find',
+                criteria: criteria
+              }
+            });
+          }
 
-        return cb(err, persons);
-      });
+          return cb(err, persons);
+        }
+      );
     },
 
     create: function (person, cb) {
@@ -53,7 +57,7 @@ module.exports = {
     },
 
     update: function (id, person, cb) {
-      var personToUpdate = _.pick(person, ['name', 'gender', 'partnership']);
+      var personToUpdate = _.pick(person, ['name', 'gender', 'partnership', 'siblings']);
 
       Person.update({ id: id }, personToUpdate).exec(function (err, persons) {
         if (err) {
@@ -68,8 +72,6 @@ module.exports = {
             }
           });
         }
-
-        console.log({id, personToUpdate, persons});
 
         return cb(err, _.first(persons));
       });

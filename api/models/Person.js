@@ -9,10 +9,8 @@ module.exports = {
 
   attributes: {
     id: {
-      type: 'objectid',
-      autoIncrement: true,
-      primaryKey: true,
-      unique: true
+      type: 'integer',
+      primaryKey: true
     },
     name: {
       type: 'string',
@@ -25,7 +23,21 @@ module.exports = {
     },
     partnership: {
       model: 'partnership'
+    },
+    siblings: {
+      model: 'siblings',
+      via: 'personIds'
     }
+  },
+
+  beforeCreate: function(newPerson, next){
+    Person.count().exec(function(err, count){
+        if(err) next(err);
+        else{
+            newPerson['id'] = count + 1;
+            next(null);
+        }
+    })
   }
 };
 

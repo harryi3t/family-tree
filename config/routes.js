@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
+  'GET /:id?': 'HomePageController.get',
 
   /***************************************************************************
   *                                                                          *
@@ -59,6 +57,13 @@ module.exports.routes = {
   'POST /partnerships': 'PartnershipController.create',
   'PUT /partnerships/:id': 'PartnershipController.update',
   'DELETE /partnerships/:id': 'PartnershipController.delete',
+
+  // Sibling routes
+  'GET /siblings/:id': 'SiblingController.get',
+  'GET /siblings': 'SiblingController.getAll',
+  'POST /siblings': 'SiblingController.create',
+  'PUT /siblings/:id': 'SiblingController.update',
+  'DELETE /siblings/:id': 'SiblingController.delete',
 
   // Family
   'GET /families/:personId': 'FamilyController.get'

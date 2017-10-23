@@ -1,5 +1,5 @@
 /**
- * Partnership.js
+ * Siblings.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -12,24 +12,17 @@ module.exports = {
       type: 'integer',
       primaryKey: true
     },
-    husband: {
-      model: 'person',
-      via: 'partnership'
-    },
-    wife: {
-      model: 'person',
-      via: 'partnership'
-    },
-    children: {
-      type: 'array'
+    personIds: {
+      collection: 'person',
+      via: 'siblings'
     }
   },
 
-  beforeCreate: function(newPartnership, next) {
-    Partnership.count().exec(function(err, count){
+  beforeCreate: function(newSiblings, next) {
+    Siblings.count().exec(function(err, count){
         if(err) next(err);
         else{
-            newPartnership['id'] = count + 1;
+            newSiblings['id'] = count + 1;
             next(null);
         }
     })

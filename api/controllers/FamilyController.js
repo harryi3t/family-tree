@@ -47,6 +47,7 @@ function getPartnerAndChildren(person, cb) {
 }
 
 module.exports = {
+    getPersonAndFamily: getPersonAndFamily,
     get: function (req, res) {
         var person = {
             id: req.params.personId
